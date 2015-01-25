@@ -17,7 +17,7 @@
 
 		<jsp:include page="shared/_flash.jsp"/>
 
-        <h1>Welcome to XXXXX!</h1>
+        <h1>Welcome to XYZ!</h1>
         <p>Jumbotron description.</p>
         <p><a class="btn btn-primary btn-lg" href="signup" role="button">Sign up now! &raquo;</a></p>
         <p></p>
@@ -48,7 +48,7 @@
       <hr>
 
       <footer>
-        <p>&copy; XXXXX 2014</p>
+        <p>&copy; XYZ 2014</p>
       </footer>
     </div> <!-- /container -->
 
