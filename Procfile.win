@@ -1,0 +1,1 @@
+web:    java -Xms256m -Xmx512m -jar build/libs/webapp-runner.jar --port $PORT build/libs/*.war

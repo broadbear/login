@@ -1,0 +1,70 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+def JERSEY_VERSION = '2.15'
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  runtimeOnly
+}
+
+dependencies {
+  compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+  compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.2'
+  compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.7'
+  compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
+  compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: JERSEY_VERSION
+  compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: JERSEY_VERSION
+  compile group: 'org.glassfish.jersey.ext', name: 'jersey-bean-validation', version: JERSEY_VERSION
+  compile group: 'org.glassfish.jersey.ext', name: 'jersey-mvc', version: JERSEY_VERSION
+  compile group: 'org.glassfish.jersey.ext', name: 'jersey-mvc-jsp', version: JERSEY_VERSION
+  compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: JERSEY_VERSION
+  compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: JERSEY_VERSION
+  compile group: 'org.mongodb', name: 'mongo-java-driver', version: '2.12.4'
+  compile group: 'org.mongodb.morphia', name: 'morphia', version: '0.108'
+  compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+  compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+  compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
+  compile group: 'org.atteo', name: 'evo-inflector', version: '1.0.1'
+  compile group: 'org.antlr', name: 'stringtemplate', version: '4.0.2'
+  compile group: 'org.scribe', name: 'scribe', version: '1.3.7'
+  compile group: 'org.glassfish.jersey.test-framework', name: 'jersey-test-framework-core', version: JERSEY_VERSION
+  compile group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-simple', version: JERSEY_VERSION
+  compile group: 'cglib', name: 'cglib', version: '3.1'
+//  compile group: 'org.glassfish.jersey.ext', name: 'jersey-spring3', version: JERSEY_VERSION
+  runtimeOnly group: 'com.github.jsimone', name: 'webapp-runner', version: '7.0.57.1'
+  testCompile group: 'junit', name: 'junit', version: '4.+'
+//  testCompile group: 'org.glassfish.jersey.test-framework', name: 'jersey-test-framework-core', version: JERSEY_VERSION
+//  testCompile group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-simple', version: JERSEY_VERSION
+}
+  
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2.1'
+}
+
+task copyToLib << {
+  copy {
+    from configurations.runtimeOnly.copy().setTransitive(false)
+    into "$buildDir/libs"
+    rename { name ->
+      def artifacts = configurations.runtimeOnly.resolvedConfiguration.resolvedArtifacts
+      def artifact = artifacts.find { it.file.name == name }
+      "${artifact.name}.${artifact.extension}"
+    }
+  }
+}
+ 
+task stage(dependsOn: ['clean', 'war', 'copyToLib'])
+  
+war {
+  manifest {
+    attributes "Environment": "Production", "Manifest-Version": version
+  }
+}

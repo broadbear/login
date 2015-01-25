@@ -1,0 +1,59 @@
+body {
+	font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Helvetica, Verdana, Arial, sans-serif;
+}
+	
+.form_div {
+	width: 1024px;
+	margin: 32px auto;
+}
+
+.content {
+	width: 1024px;
+	margin: 32px auto;
+}
+
+.content h2 {
+	font-style: italic;
+	color: #3d16e3;
+}
+
+.error {
+	color: red;
+	font-style: italic;
+}
+
+#loading_div {
+	margin: 18px auto;
+	height: 1000px;
+}
+
+#loading_div img {
+	display: block;
+	margin: 18px auto;
+}
+
+.table_class td {
+	white-space: nowrap;
+}
+
+.menu {
+	background: url('../images/menu_grad.png');
+	width: 100%;
+	height: 43px;
+}
+
+.sf-menu li {
+	background: url('../images/menu_grad.png');
+}
+
+.sf-menu li.sfHover, .sf-menu li:hover {
+	background: url('../images/menu_grad_hover.png');
+}
+
+.sf-menu li.current {
+	background: url('../images/menu_grad_hover.png');
+}
+
+.sf-menu a {
+	border-left: 0;
+}
