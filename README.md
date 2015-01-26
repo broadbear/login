@@ -1,1 +1,1 @@
-This is a generic login framework developed as a part of a learning experiment described here: Implementing Rails with Java and Jersey - http://bit.ly/1uNGppA.
+This is a generic login framework developed as a part of a learning experiment described here: Implementing Rails with Java and Jersey - http://bit.ly/1uNGppA. It covers basic user register/activation/login and password reset use cases, implemented with Bootstrap/Java/Jersey. Sign on with twitter is also included.
